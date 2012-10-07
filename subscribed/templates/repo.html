@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Users subscribed to {{ repo.owner.login }}/{{ repo.name }}
+{% endblock %}
+
+{% block header %}
+Subscribed
+{% endblock %}
+
+{% block extraheader %}
+<h2>
+Users subscribed to {{ repo.owner.login }}/{{ repo.name }}
+</h2>
+{% endblock %}
+
+
+{% block body %}
+{% for user in repo.iter_subscribers() %}
+{{ user.login }} - <a href="https://github.com/{{user.login}}">
+    https://github.com/{{user.login}}</a><br />
+{% endfor %}
+{% endblock %}

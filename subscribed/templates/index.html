@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Subscribed
+{% endblock %}
+
+{% block header %}
+Subscribed
+{% endblock %}
+
+{% block extraheader %}
+<h2>
+View the subscription for any user or public repository on GitHub.
+</h2>
+{% endblock %}
+
+
+{% block body %}
+As of this moment, GitHub does not allow you to know who is watching your 
+repositories (or anyone's repositories) without accessing the API. This 
+website makes that information freely available to you using <a 
+    href="http://flask.pocoo.org">Flask</a> and
+<a href="https://github.com/sigmavirus24/github3.py">github3.py</a>.
+Simply use a link like <a href="/sigmavirus24/github3.py">this</a> and a 
+minimalistic design.
+{% endblock %}
