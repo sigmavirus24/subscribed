@@ -1,8 +1,12 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, make_response
 from github3 import repository, user, GitHubError
 
 
 app = Flask(__name__)
+
+ROBOTS = """User-agent: *
+Disallow: /*
+"""
 
 
 @app.route('/')
@@ -28,3 +32,11 @@ def user_subscriptions(login):
         return redirect(url_for('index'))
 
     return render_template('user.html', user=u)
+
+
+@app.route('/robots.txt')
+def robots():
+    resp = make_response()
+    resp.data = ROBOTS
+    resp.content_type = "text/plain"
+    return resp
