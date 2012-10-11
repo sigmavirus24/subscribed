@@ -43,3 +43,8 @@ body a {
     text-align : inherit;
     color : #2966B8;
 }
+
+#footer, #footer p {
+    font-size: 8pt;
+    text-align: center;
+}
