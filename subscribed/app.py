@@ -8,7 +8,7 @@ ROBOTS = """User-agent: *
 Disallow: /sigmavirus24
 Disallow: /sigmavirus24/github3.py
 """
-# Only disallow the two links on the front page until I can get requests 
+# Only disallow the two links on the front page until I can get requests
 # working with the proxy
 
 
@@ -29,9 +29,13 @@ def repo_subscribers(login, repo):
 
 @app.route('/<login>')
 def user_subscriptions(login):
+    failed = False
     try:
         u = user(login)
     except GitHubError:
+        failed = True
+
+    if failed or u.type.lower() != 'user':
         return redirect(url_for('index'))
 
     return render_template('user.html', user=u)
