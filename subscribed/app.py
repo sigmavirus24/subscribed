@@ -1,6 +1,9 @@
 from flask import Flask, render_template, redirect, url_for, make_response
-from github3 import repository, user, GitHubError
+from github3 import GitHub, GitHubError
 
+
+gh = GitHub()
+gh.set_user_agent('subscribed (https://subscribed.herokuapp.com)')
 
 app = Flask(__name__)
 
@@ -20,7 +23,7 @@ def index():
 @app.route('/<login>/<repo>')
 def repo_subscribers(login, repo):
     try:
-        r = repository(login, repo)
+        r = gh.repository(login, repo)
     except GitHubError:
         return redirect(url_for('index'))
 
@@ -31,7 +34,7 @@ def repo_subscribers(login, repo):
 def user_subscriptions(login):
     failed = False
     try:
-        u = user(login)
+        u = gh.user(login)
     except GitHubError:
         failed = True
 
