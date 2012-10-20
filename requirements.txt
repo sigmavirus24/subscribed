@@ -1,4 +1,2 @@
 flask>=0.9
 git+git://github.com/sigmavirus24/github3.py
-raven
-blinker
