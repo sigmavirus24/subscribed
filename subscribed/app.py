@@ -1,9 +1,14 @@
 from flask import Flask, render_template, redirect, url_for, make_response
 from github3 import GitHub, GitHubError
+from os import environ
 
 
 gh = GitHub()
 gh.set_user_agent('subscribed (https://subscribed.herokuapp.com)')
+
+id, secret = (environ.get('GH_ID', ''), environ.get('GH_SECRET', ''))
+if id and secret:
+    gh.set_client_id(id, secret)
 
 app = Flask(__name__)
 
