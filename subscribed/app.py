@@ -1,17 +1,18 @@
 from flask import (Flask, render_template, redirect, url_for, make_response,
-        Response)
+                   Response, flash)
 from github3 import GitHub, GitHubError
-from os import environ
+from os import getenv
 
 
 gh = GitHub()
 gh.set_user_agent('subscribed (https://subscribed.herokuapp.com)')
 
-id, secret = (environ.get('GH_ID', ''), environ.get('GH_SECRET', ''))
+id, secret = (getenv('GH_ID', ''), getenv('GH_SECRET', ''))
 if id and secret:
     gh.set_client_id(id, secret)
 
 app = Flask(__name__)
+app.secret_key = getenv('SECRET_KEY', '')
 
 
 @app.route('/')
@@ -35,6 +36,8 @@ def repo_subscribers(login, repo):
     try:
         r = gh.repository(login, repo)
     except GitHubError:
+        flash('Either the repository {0}/{1} does'.format(login, repo) +
+              'not exist or it is not public.')
         return redirect(url_for('index'))
 
     return Response(stream_template('repo.html', repo=r))
@@ -49,6 +52,7 @@ def user_subscriptions(login):
         failed = True
 
     if failed or u.type.lower() != 'user':
+        flash('User {0} does not exist.'.format(login))
         return redirect(url_for('index'))
 
     return Response(stream_template('user.html', user=u))
