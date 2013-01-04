@@ -16,7 +16,7 @@ if sys.argv[1] in ('submit', 'publish'):
 sysv = sys.version[:3]
 
 packages = ['subscribed']
-requires = ['github3.py>=0.1b0', 'flask>=0.9']
+requires = ['github3.py>=0.3', 'flask>=0.9']
 del sysv
 
 __version__ = ''

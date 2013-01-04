@@ -1,2 +1,2 @@
 flask>=0.9
-git+git://github.com/sigmavirus24/github3.py
+github3.py>=0.3
